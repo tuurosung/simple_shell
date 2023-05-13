@@ -7,11 +7,12 @@
 #include <sys/types.h>
 #include <errno.h>
 #include <sy/wait>
+#include <sys/stat.h>
 
 typedef struct list_s
 {
 
-} list_t
+} list_t;
 
 
 
