@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 	signal(SIGINT, sig_handler);
 
 	*exe_ret = 0;
-	environ = _copyenv(1);
+	environ = _copyenv();
 
 	/* check if environ is valid */
 	if (!environ)
