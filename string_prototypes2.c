@@ -6,7 +6,12 @@ int _strspn(char *str, char *match);
 int _strcmp(char *str1, char *str2);
 int _strncmp(const char *str1, const char *str2, size_t len);
 
-
+/**
+ * _strchr - searches for first occurence of a character
+ * @s: character to be checked
+ * @c: character to be checked
+ * Return: returns null
+ */
 char *_strchr(char *s, char c)
 {
 	int i;
@@ -19,6 +24,12 @@ char *_strchr(char *s, char c)
 	return (NULL);
 }
 
+/**
+ * _strspn - function the calculates length of a string
+ * @s: string to be checked
+ * @match: string to be checked
+ * Return: returns number of bytes
+ */
 
 int _strspn(char *s, char *match)
 {
@@ -40,7 +51,13 @@ int _strspn(char *s, char *match)
 	}
 }
 
-
+/**
+ * _strcmp- compares two strings
+ * @str1: string to be checked
+ * @str2: string to be checked
+ * Return: returns 0
+ *
+ */
 
 
 int _strcmp(char *str1, char *str2)
@@ -57,6 +74,13 @@ int _strcmp(char *str1, char *str2)
 	return (0);
 }
 
+/**
+ * _strncmp - compares first number of bytes in two strings
+ * @str1: string to be checked
+ * @str2: string to be checked
+ * @len: number of bytes
+ * Return: returns first number of bytes
+ */
 
 int _strncmp(const char *str1, const char *str2, size_t len)
 {
