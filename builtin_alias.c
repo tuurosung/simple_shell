@@ -86,7 +86,7 @@ void assign_alias(char *alias_name, char *alias_val)
     new_val = malloc(sizeof(char) * (st_len + 1));
 
     /* check for NULL*/
-    if (new_val)
+    if (!new_val)
         return;
 
 
@@ -139,7 +139,7 @@ void print_alias(alias_t * alias)
     _strcpy(nickname, alias->name);
     _strcat(nickname, "='");
     _strcat(nickname, alias->value);
-    _strchr(nickname, "'\n");
+    _strcat(nickname, "'\n");
 
     write (STDOUT_FILENO, nickname, st_len);
     free(nickname);

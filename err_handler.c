@@ -77,7 +77,7 @@ char *error_2_exit(char **args)
 	_strcat(error, ": exit: Illegal number");
 	_strcat(error, args[0]);
 	_strcat(error, "\n");
-	
+
 	free(hist_str);
 	return (error);
 }

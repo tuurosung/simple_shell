@@ -65,15 +65,32 @@ char *_strcat(char *dest, const char *src);
 char *_strncat(char *dest, const char *src, size_t i);
 
 /* string prototype functions defined in file (string_prototypes2.c) */
-char *_strchr(char *s, char c);
+char *_strchr(char *str, char c);
 int _strspn(char *str, char *match);
-int _strcmp(char *str1, char *str2);
-int _strncmp(const char *str1, char *str2, size_t len);
+int _strcmp(char* str1, char* str2);
+int _strncmp(const char *str1, const char *str2, size_t len);
 
 /* error handling functions */
 int create_error(char **args, int error_code);
 char *error_env(char **args);
 char *error_1(char **args);
+char *error_2_exit(char **args);
+char *error_2_cd(char **args);
+char *error_2_syntax(char **args);
+char *error_126(char **args);
+char *error_127(char **args);
 
+
+alias_t *add_alias_end(alias_t **head, char *name, char *value);
+void free_alias_list(alias_t *head);
+list_t *add_node_end(list_t *head, char *dir);
+void free_node_list(list_t *head);
+
+
+void free_args(char **args, char **front);
+char *_itoa(int number);
+int handle_args(int *ret_var);
+
+int proc_file_commands(char *filepath, int *ret_var);
 
 #endif
