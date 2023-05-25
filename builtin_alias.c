@@ -83,7 +83,7 @@ void assign_alias(char *alias_name, char *alias_val)
     alias_val++;
 
     st_len = _strlen(alias_val) - _strspn(alias_val, "'\"");
-    new_val = malloc(sizeof(char) * (st_len + 1));
+    new_val = malloc(sizeof(char)  *  (st_len + 1));
 
     /* check for NULL*/
     if (!new_val)

@@ -17,7 +17,7 @@
 #define EXIT -3
 
 extern char **environ;
-char *name;
+char *name ;
 int hist;
 
 /**
@@ -56,13 +56,33 @@ alias_t *aliases;
 /* variables */
 char **_copyenv(void);
 void free_env(void);
-char **__getenv(const char *var);
+char **_getenv(const char *var);
 
 /* string protype functions  defined in file (string_prototypes.c)*/
 int _strlen(const char *str);
 char *_strcpy(char *dest, const char *src);
 char *_strcat(char *dest, const char *src);
 char *_strncat(char *dest, const char *src, size_t i);
+
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+char **_strtok(char *line, char *terminus);
+char *get_location(char *command);
+list_t *get_path_dir(char *path);
+int execute(char **args, char **front);
+void free_list(list_t *head);
+char *_itoa(int num);
+
+/* Input Helpers */
+void handle_line(char **line, ssize_t read);
+void variable_replacement(char **args, int *exe_ret);
+char *get_args(char *line, int *exe_ret);
+int call_args(char **args, char **front, int *exe_ret);
+int run_args(char **args, char **front, int *exe_ret);
+int handle_args(int *exe_ret);
+int check_args(char **args);
+void free_args(char **args, char **front);
+char **replace_aliases(char **args);
 
 /* string prototype functions defined in file (string_prototypes2.c) */
 char *_strchr(char *str, char c);
@@ -83,13 +103,41 @@ char *error_127(char **args);
 
 alias_t *add_alias_end(alias_t **head, char *name, char *value);
 void free_alias_list(alias_t *head);
-list_t *add_node_end(list_t *head, char *dir);
+list_t *add_node_end(list_t **head, char *dir);
 void free_node_list(list_t *head);
 
 
 void free_args(char **args, char **front);
 char *_itoa(int number);
 int handle_args(int *ret_var);
+
+/* functions from file - handle_inputs */
+char *get_args(char *line, int *exe_ret);
+int call_args(char **args, char **front, int *exe_ret);
+int run_args(char **args, char **front, int *exe_ret);
+int handle_args(int *exe_ret);
+int check_args(char **args);
+
+
+
+int (*get_builtin(char *command))(char **args, char **front);
+int shellby_exit(char **args, char **front);
+int shellby_env(char **args, char __attribute__((__unused__)) * *front);
+int shellby_setenv(char **args, char __attribute__((__unused__)) * *front);
+int shellby_unsetenv(char **args, char __attribute__((__unused__)) * *front);
+int shellby_cd(char **args, char __attribute__((__unused__)) * *front);
+int shellby_alias(char **args, char __attribute__((__unused__)) * *front);
+int shellby_help(char **args, char __attribute__((__unused__)) * *front);
+
+void help_all(void);
+void help_alias(void);
+void help_cd(void);
+void help_exit(void);
+void help_help(void);
+void help_env(void);
+void help_setenv(void);
+void help_unsetenv(void);
+void help_history(void);
 
 int proc_file_commands(char *filepath, int *ret_var);
 
