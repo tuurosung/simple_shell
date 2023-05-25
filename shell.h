@@ -18,19 +18,19 @@
 #define EXIT -3
 
 extern char **environ;
-char *name ;
-int hist;
+extern char *name;
+extern int hist;
 
 /**
- * struct builtin - a struct that defines builtin function;
+ * struct builtin_s - a struct that defines builtin function;
  * @name: the name of the function
  * @f: the address of the function
  */
 
 typedef struct builtin_s
 {
-    char *name;
-    int (*f)(char **argv, char **front);
+	char *name;
+	int (*f)(char **argv, char **front);
 } builtin_t;
 
 /**
@@ -41,15 +41,21 @@ typedef struct builtin_s
 
 typedef struct list_s
 {
-    char *dir;
-    struct list_s *next;
+	char *dir;
+	struct list_s *next;
 } list_t;
 
+/**
+ * struct alias_s - a struct that defines a linked alias.
+ * @name: name
+ * @value: the address of the
+ * @next: the address of another linked alias element
+*/
 typedef struct alias_s
 {
-    char *name;
-    char *value;
-    struct alias_s *next;
+	char *name;
+	char *value;
+	struct alias_s *next;
 } alias_t;
 
 alias_t *aliases;
