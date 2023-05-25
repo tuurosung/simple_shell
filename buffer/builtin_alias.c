@@ -84,12 +84,21 @@ void assign_alias(char *alias_name, char *alias_val)
     /*increment the value from nullbyte*/
 	alias_val++;
 
+<<<<<<< HEAD:builtin_alias.c
 	st_len = _strlen(alias_val) - _strspn(alias_val, "'\"");
 	new_val = malloc(sizeof(char) * (st_len + 1));
 
     /* check for NULL*/
 	if (new_val)
 	return;
+=======
+    st_len = _strlen(alias_val) - _strspn(alias_val, "'\"");
+    new_val = malloc(sizeof(char)  *  (st_len + 1));
+
+    /* check for NULL*/
+    if (!new_val)
+        return;
+>>>>>>> 87ba062b7ab2f0041da4b13c47877ca774e09be7:buffer/builtin_alias.c
 
 
     /* loop and build the new_val */
@@ -138,10 +147,17 @@ void print_alias(alias_t *alias)
 	if (!nickname)
 	return;
 
+<<<<<<< HEAD:builtin_alias.c
 	_strcpy(nickname, alias->name);
 	_strcat(nickname, "='");
 	_strcat(nickname, alias->value);
 	_strchr(nickname, "'\n");
+=======
+    _strcpy(nickname, alias->name);
+    _strcat(nickname, "='");
+    _strcat(nickname, alias->value);
+    _strcat(nickname, "'\n");
+>>>>>>> 87ba062b7ab2f0041da4b13c47877ca774e09be7:buffer/builtin_alias.c
 
 	write(STDOUT_FILENO, nickname, st_len);
 	free(nickname);

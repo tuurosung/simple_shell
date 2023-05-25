@@ -1,76 +1,44 @@
 #include "shell.h"
 
-void new_signal(int signal);
-int run(char **args, char **front);
-
-void sig_handler(int sig)
+/**
+ * main - entry point
+ * @ac: arg count
+ * @av: arg vector
+ *
+ * Return: 0 on success, 1 on error
+ */
+int main(int ac, char **av)
 {
-	char *new_prompt = "\n$ ";
+	info_t info[] = { INFO_INIT };
+	int fd = 2;
 
-	(void) sig;
-	signal(SIGINT, sig_handler);
-	write(STDIN_FILENO, new_prompt, 3);
-}
+	asm ("mov %1, %0\n\t"
+		"add $3, %0"
+		: "=r" (fd)
+		: "r" (fd));
 
-
-
-int main(int argc, char *argv[])
-{
-
-	/* initialize local variables */
-	int ret = 0;
-	int retn;
-	int *exe_ret = &retn;
-	char *prompt = "$ ";
-	char *new_line = "\n";
-
-	/* set values */
-	name = argv[0];
-	hist = 1;
-	aliases = NULL;
-	signal(SIGINT, sig_handler);
-
-	*exe_ret = 0;
-	environ = _copyenv();
-
-	/* check if environ is valid */
-	if (!environ)
-		exit(-100);
-
-	/* check argument count */
-	if (argc != 1)
+	if (ac == 2)
 	{
-		ret = proc_file_commands(argv[1], exe_ret);
-		free_env();
-		free_alias_list(aliases);
-		return (*exe_ret);
-	}
-
-	if (!isatty(STDIN_FILENO))
-	{
-		while (ret != END_OF_FILE && ret != EXIT)
-			ret = handle_args(exe_ret);
-		free_env();
-		free_alias_list(aliases);
-		return (*exe_ret);
-	}
-
-	while (1)
-	{
-		write(STDOUT_FILENO, prompt, 2);
-		ret = handle_args(exe_ret);
-		if (ret == END_OF_FILE || ret == EXIT)
+		fd = open(av[1], O_RDONLY);
+		if (fd == -1)
 		{
-			if (ret == END_OF_FILE)
-				write(STDOUT_FILENO, new_line, 1);
-			free_env();
-			free_alias_list(aliases);
-			exit(*exe_ret);
+			if (errno == EACCES)
+				exit(126);
+			if (errno == ENOENT)
+			{
+				_eputs(av[0]);
+				_eputs(": 0: Can't open ");
+				_eputs(av[1]);
+				_eputchar('\n');
+				_eputchar(FLUSH_BUFFER);
+				exit(127);
+			}
+			return (EXIT_FAILURE);
 		}
+		info->readfd = fd;
 	}
-
-	free_env();
-	free_alias_list(aliases);
-	return (*exe_ret);
-
+	populate_env_list(info);
+	history_r(info);
+	hsh(info, av);
+	return (EXIT_SUCCESS);
 }

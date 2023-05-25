@@ -1,34 +1,29 @@
 #include "shell.h"
 
 void *_realloc(void *ptr, unsigned int prev_size, unsigned int new_size);
-void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t buffer_size);
+void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t buff_size);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
-/**
- * _realloc - function that resizes memory
- * @ptr: pointer to memory
- * @prev_size: previous memory size
- * @new_size: current memmory size
- * Return: returns new memory size
- */
 
 void *_realloc(void *ptr, unsigned int prev_size, unsigned int new_size)
 {
-    /* initialize variables */
+
+	/* initialize variables */
 	void *memory;
 	char *ptr_copy, *filler;
 	unsigned int i;
 
-    /* check for NULL */
+
+	/* check for NULL */
 	if (new_size == prev_size)
-	return (ptr);
+		return (ptr);
 
 	if (ptr == NULL)
 	{
 		memory = malloc(new_size);
-	if (memory == NULL)
-	return (NULL);
-	return (memory);
+		if (memory == NULL)
+			return (NULL);
+		return (memory);
 	}
 
 	if (new_size == 0 && ptr != NULL)
@@ -53,49 +48,32 @@ void *_realloc(void *ptr, unsigned int prev_size, unsigned int new_size)
 	free(ptr);
 	return (memory);
 }
-/**
- * assign_lineptr - that reads user input
- * @lineptr: pointer to user inputs
- * @n: number of inputs
- * @buffer: strings of inputs
- * @buffer_size: size of buffer
- * Return: returns nothing
- */
 
-void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t buffer_size)
+
+void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t buff_size)
 {
 	if (*lineptr == NULL)
 	{
-	if (buffer_size > 120)
-		*n = buffer_size;
-
-	else
-	*n = 120;
-	*lineptr = buffer;
+		if (buff_size > 120)
+			*n = buff_size;
+		
+		else
+			*n = 120;
+		*lineptr = buffer;
 
 	}
 	else
 	{
-	_strcpy(*lineptr, buffer);
-	free(buffer);
+		_strcpy(*lineptr, buffer);
+		free(buffer);
 	}
 }
-
-/**
- * _getline - function that reads entire line from stream
- *
- * @lineptr: pointer to user input
- * @n: number of inputs
- * @stream: stream to be read
- *
- *Return: returns result
- */
 
 
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 {
 	static ssize_t input;
-	ssize_t result;
+	ssize_t res;
 	char c = 'x', *buffer;
 	int r;
 
@@ -127,13 +105,17 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 		if (input >= 120)
 			buffer = _realloc(buffer, input, input + 1);
 
-			buffer[input] = c;
-			input++;
-	}
-	buffer[input] = '\0';
-	assign_lineptr(lineptr, n, buffer, input);
-	return = input;
-	if (r != 0)
-	input = 0;
-	return (result);
+		buffer[input] = c;
+		input++;
+
+		}
+
+		buffer[input] = '\0';
+
+		assign_lineptr(lineptr, n, buffer, input);
+		res = input;
+		if (r != 0)
+		input = 0;
+		return (res);
+
 }

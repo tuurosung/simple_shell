@@ -1,24 +1,24 @@
 #include "shell.h"
 
-char *error_env(char **args);
+char *error_env(char **args, info_t *info);
 char *error_1(char **args);
 char *error_2_exit(char **args);
 char *error_2_cd(char **args);
 char *error_2_syntax(char **args);
 
-char *error_env(char **args)
+char *error_env(char **args, info_t *info)
 {
 <<<<<<< HEAD
 =======
 	char *error, *hist_str;
 	int len;
 
-	hist_str = _itoa(hist);
+	hist_str = _itoa(info->hist);
 	if (!hist_str)
 		return (NULL);
 
 	args--;
-	len = _strlen(name) + _strlen(hist_str) + _strlen(args[0] + 45);
+	len = _strlen(info->name) + _strlen(hist_str) + _strlen(args[0] + 45);
 	error = malloc(sizeof(char) + (len + 1));
 
 	if (!error)
@@ -27,7 +27,7 @@ char *error_env(char **args)
 		return (NULL);
 	}
 
-	_strcpy(error, name);
+	_strcpy(error, info->name);
 	_strcat(error, ": ");
 	_strcat(error, hist_str);
 	_strcat(error, args[0]);
@@ -42,7 +42,7 @@ char *error_1(char **args)
 	char *error;
 	int len;
 
-	len = _strlen(name) + _strlen(args[0]) + 13;
+	len = _strlen(info_t info->name) + _strlen(args[0]) + 13;
 	error = malloc(sizeof(char) + (len + 1));
 
 	if (!error)
@@ -79,7 +79,7 @@ char *error_2_exit(char **args)
 	_strcat(error, ": exit: Illegal number");
 	_strcat(error, args[0]);
 	_strcat(error, "\n");
-	
+
 	free(hist_str);
 	return (error);
 }
